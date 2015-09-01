@@ -56,7 +56,7 @@ jobs:
   - aggregate:
     # TODO: After the bosh-init and bats tasks are implemented, we should
     # be able to add
-    - {trigger: true, get: bosh-cpi-dev-artifacts}
+    - {trigger: true, passed: [build-candidate], get: bosh-cpi-dev-artifacts}
     - {trigger: false, get: bosh-cpi-release, resource: bosh-cpi-release-out}
 
   - task: promote
@@ -76,6 +76,7 @@ resources:
   source:
     uri: {{azure_cpi_bosh_release_repo}}
     branch: {{azure_cpi_bosh_release_branch}}
+    private_key: {{github_deployment_key__bosh-azure-cpi-release}}
     ignore_paths:
         - .final_builds/**/*.yml
         - releases/**/*.yml
