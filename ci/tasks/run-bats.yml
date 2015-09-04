@@ -3,6 +3,7 @@ platform: linux
 image: docker:///sedouard/azure-cpi-release
 inputs:
 - name: bosh-cpi-dev-artifacts
+- name: stemcell
 - name: bosh-cpi-release
 - name: azure-exports
 - name: bosh
