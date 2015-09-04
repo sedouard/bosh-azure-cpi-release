@@ -106,11 +106,13 @@ jobs:
 
 - name: bats-ubuntu
   plan:
+  #  passed: [deploy-director],
+  # passed: [azure-ubuntu]
   - aggregate:
-    - {trigger: true, passed: [deploy-director], get: bosh-cpi-dev-artifacts}
+    - {trigger: true, get: bosh-cpi-dev-artifacts}
     - {trigger: false, get: stemcell, resource: azure-ubuntu-stemcell}
     - {trigger: false, get: bosh-cpi-release, resource: bosh-cpi-release-in}
-    - {trigger: false, passed: [azure-ubuntu], get: azure-exports, resource: azure-exports}
+    - {trigger: false, get: azure-exports, resource: azure-exports}
     - {trigger: false, get: bosh}
 
   - task: test

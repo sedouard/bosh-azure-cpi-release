@@ -44,8 +44,8 @@ cpi: azure
 properties:
   uuid: 5882a5e5-0d86-45f5-ad33-6bd5a64f2c65
   stemcell:
-    name: bosh-azure-hyperv-ubuntu-trusty-go_agent
-    version: '0000'
+    url: http://cloudfoundry.blob.core.windows.net/stemcell/stemcell.beta.tgz
+    sha1: b05121f774aeaedbd66f6e735339be5c1bf85a5b
   vip: $DIRECTOR
   pool_size: 1
   instances: 1
