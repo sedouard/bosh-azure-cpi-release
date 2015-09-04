@@ -110,7 +110,6 @@ jobs:
   # passed: [azure-ubuntu]
   - aggregate:
     - {trigger: true, get: bosh-cpi-dev-artifacts}
-    - {trigger: false, get: stemcell, resource: azure-ubuntu-stemcell}
     - {trigger: false, get: bosh-cpi-release, resource: bosh-cpi-release-in}
     - {trigger: false, get: azure-exports, resource: azure-exports}
     - {trigger: false, get: bosh}
@@ -208,4 +207,6 @@ resources:
 - name: azure-ubuntu-stemcell
   type: bosh-io-stemcell
   source:
-    name: bosh-aws-xen-hvm-ubuntu-trusty-go_agent
+    name: bosh-azure-hyperv-ubuntu-trusty-go_agent
+    version: '0000'
+    url: {{BAT_STEMCELL_URL_UBUNTU}}
