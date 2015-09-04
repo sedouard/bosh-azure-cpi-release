@@ -13,7 +13,9 @@ check_param BAT_NETWORK_RESERVED_RANGE
 check_param BAT_NETWORK_STATIC_RANGE
 check_param BAT_NETWORK_GATEWAY
 check_param BAT_NETWORK_STATIC_IP
-check_param BAT_STEMCELL_NAME
+check_param BAT_STEMCELL_URL
+check_param BAT_STEMCELL_SHA
+check_param AZURE_VNET_NAME
 
 source /etc/profile.d/chruby.sh
 chruby 2.1.2
@@ -37,15 +39,16 @@ export BAT_VCAP_PRIVATE_KEY=$PWD/keys/bats.pem
 export BAT_INFRASTRUCTURE=azure
 export BAT_NETWORKING=manual
 
+bosh -n target $BAT_DIRECTOR
 
 cat > "${BAT_DEPLOYMENT_SPEC}" <<EOF
 ---
 cpi: azure
 properties:
-  uuid: 5882a5e5-0d86-45f5-ad33-6bd5a64f2c65
+  uuid: $(bosh status --uuid)
   stemcell:
-    url: http://cloudfoundry.blob.core.windows.net/stemcell/stemcell.beta.tgz
-    sha1: b05121f774aeaedbd66f6e735339be5c1bf85a5b
+    url: $BAT_STEMCELL_URL
+    sha1: $BAT_STEMCELL_SHA
   vip: $DIRECTOR
   pool_size: 1
   instances: 1
@@ -54,7 +57,7 @@ properties:
     type: manual
     static_ip: $BAT_NETWORK_STATIC_IP
     cloud_properties:
-      virtual_network_name: boshvnet-crp
+      virtual_network_name: $AZURE_VNET_NAME
       subnet_name: CloudFoundry
     cidr: $BAT_NETWORK_CIDR
     reserved: ['$BAT_NETWORK_RESERVED_RANGE']

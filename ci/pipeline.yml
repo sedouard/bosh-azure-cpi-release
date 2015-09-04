@@ -122,7 +122,8 @@ jobs:
         base_os:                    ubuntu
         BAT_VCAP_PASSWORD:          {{BAT_VCAP_PASSWORD}}
         private_key_data:           {{bosh_private_key}}
-        BAT_STEMCELL_NAME:          {{BAT_STEMCELL_NAME_ubuntu}}
+        BAT_STEMCELL_URL:           {{BAT_STEMCELL_URL_UBUNTU}}
+        BAT_STEMCELL_SHA:           {{BAT_STEMCELL_SHA}}
         BAT_SECOND_STATIC_IP:       {{BAT_SECOND_STATIC_IP}}
         BAT_NETWORK_STATIC_IP:      {{BAT_NETWORK_STATIC_IP}}
         BAT_NETWORK_CIDR:           {{AZURE_NETWORK_CIDR}}
