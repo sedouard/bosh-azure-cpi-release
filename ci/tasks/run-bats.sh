@@ -1,0 +1,131 @@
+#!/usr/bin/env bash
+
+set -e
+
+source bosh-cpi-release/ci/tasks/utils.sh
+
+check_param base_os
+check_param private_key_data
+check_param BAT_VCAP_PASSWORD
+check_param BAT_SECOND_STATIC_IP
+check_param BAT_NETWORK_CIDR
+check_param BAT_NETWORK_RESERVED_RANGE
+check_param BAT_NETWORK_STATIC_RANGE
+check_param BAT_NETWORK_GATEWAY
+check_param BAT_NETWORK_STATIC_IP
+check_param BAT_STEMCELL_NAME
+
+source /etc/profile.d/chruby.sh
+chruby 2.1.2
+
+source azure-exports/azure-exports.sh
+echo "DirectorIP =" $DIRECTOR
+
+mkdir -p $PWD/keys
+echo "$private_key_data" > $PWD/keys/bats.pem
+eval $(ssh-agent)
+chmod go-r $PWD/keys/bats.pem
+ssh-add $PWD/keys/bats.pem
+
+export BAT_DIRECTOR=$DIRECTOR
+export BAT_DNS_HOST=$DIRECTOR
+export BAT_STEMCELL="${PWD}/stemcell/stemcell.tgz"
+export BAT_DEPLOYMENT_SPEC="${PWD}/${base_os}-bats-config.yml"
+export BAT_VCAP_PASSWORD=$BAT_VCAP_PASSWORD
+export BAT_VCAP_PRIVATE_KEY=$PWD/keys/bats.pem
+export BAT_INFRASTRUCTURE=azure
+export BAT_NETWORKING=manual
+
+
+cat > "${BAT_DEPLOYMENT_SPEC}" <<EOF
+---
+cpi: azure
+properties:
+  uuid: 5882a5e5-0d86-45f5-ad33-6bd5a64f2c65
+  stemcell:
+    name: bosh-azure-hyperv-ubuntu-trusty-go_agent
+    version: '0000'
+  vip: $DIRECTOR
+  pool_size: 1
+  instances: 1
+  networks:
+  - name: default
+    type: manual
+    static_ip: $BAT_NETWORK_STATIC_IP
+    cloud_properties:
+      virtual_network_name: boshvnet-crp
+      subnet_name: CloudFoundry
+    cidr: $BAT_NETWORK_CIDR
+    reserved: ['$BAT_NETWORK_RESERVED_RANGE']
+    static: ['$BAT_NETWORK_STATIC_RANGE']
+    gateway: $AZURE_NETWORK_GATEWAY
+  - name: static
+    type: vip
+    cloud_properties:
+      tcp_endpoints:
+      - "22:22"
+      - "80:80"
+      - "443:443"
+      - "4222:4222"
+      - "4443:4443"
+  key_name: bosh
+EOF
+
+cat $BAT_DEPLOYMENT_SPEC
+cd bosh
+ls
+# THIS WILL GO AWAY AFTER CODE IS MERGED
+rm .gitmodules
+cat > ".gitmodules" <<EOF
+[submodule "go/src/github.com/cloudfoundry/bosh-agent"]
+      path = go/src/github.com/cloudfoundry/bosh-agent
+      url = https://github.com/AbelHu/bosh-agent.git
+      branch = azure_cpi_external
+[submodule "spec/assets/uaa"]
+      path = spec/assets/uaa
+      url = https://github.com/cloudfoundry/uaa.git
+[submodule "bat"]
+      path = bat
+      url = https://github.com/AbelHu/bosh-acceptance-tests.git
+      branch = azure_cpi_external
+EOF
+pwd
+echo cat .gitmodules
+cat .gitmodules
+rm .git/config
+cat > ".git/config" <<EOF
+[core]
+  repositoryformatversion = 0
+  filemode = true
+  bare = false
+  logallrefupdates = true
+[remote "origin"]
+  url = https://github.com/AbelHu/bosh
+  fetch = +refs/heads/*:refs/remotes/origin/*
+[branch "azure_cpi_external"]
+  remote = origin
+  merge = refs/heads/azure_cpi_external
+[submodule "bat"]
+  url = https://github.com/AbelHu/bosh-acceptance-tests.git
+  branch = azure_cpi_external
+[submodule "go/src/github.com/cloudfoundry/bosh-agent"]
+  url = https://github.com/AbelHu/bosh-agent.git
+[submodule "spec/assets/uaa"]
+  url = https://github.com/cloudfoundry/uaa.git
+EOF
+cd bat
+git config remote.origin.url https://github.com/AbelHu/bosh-acceptance-tests.git
+cd ..
+echo Current Directory:
+echo git submodule update --init
+git submodule update --init
+echo git submodule update --remote
+git submodule update --remote
+echo bundle install
+gem uninstall mini_portile -v '0.7.0.rc2' --ignore-dependencies
+gem install mini_portile -v '0.6.2'
+bundle install
+echo bundle exec rake bat:env
+bundle exec rake bat:env
+echo bundle exec rake bat
+bundle exec rake bat
