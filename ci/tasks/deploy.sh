@@ -192,7 +192,8 @@ jobs:
       client_id: $AZURE_CLIENT_ID
       client_secret: $AZURE_CLIENT_SECRET
       ssh_user: vcap
-      ssh_certificate: $ssh_certificate
+      ssh_certificate: | 
+        $ssh_certificate
 
     # Tells agents how to contact nats
     agent: {mbus: "nats://nats:nats-password@10.0.0.10:4222"}
