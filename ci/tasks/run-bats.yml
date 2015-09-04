@@ -21,4 +21,5 @@ params:
   BAT_NETWORK_RESERVED_RANGE:   replace-me
   BAT_NETWORK_STATIC_RANGE:     replace-me
   BAT_NETWORK_GATEWAY:          replace-me
+  AZURE_VNET_NAME:              replace-me
 

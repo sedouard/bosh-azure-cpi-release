@@ -74,7 +74,7 @@ properties:
       - "4443:4443"
   key_name: bosh
 EOF
-
+echo Using Deployment Spec:
 cat $BAT_DEPLOYMENT_SPEC
 cd bosh
 ls
