@@ -21,7 +21,7 @@ source /etc/profile.d/chruby.sh
 chruby 2.1.2
 
 source azure-exports/azure-exports.sh
-export DIRECTOR=104.209.183.136
+
 echo "DirectorIP =" $DIRECTOR
 
 mkdir -p $PWD/keys
