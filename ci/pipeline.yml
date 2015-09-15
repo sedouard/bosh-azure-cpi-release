@@ -58,7 +58,7 @@ jobs:
   - aggregate:
     - {trigger: false,  passed: [build-candidate],  get: bosh-cpi-dev-artifacts, resource: bosh-cpi-dev-artifacts}
     - {trigger: false, passed: [build-candidate],  get: version-semver, resource: version-semver}
-    - {trigger: true,  passed: [azure-ubuntu],     get: azure-exports, resource: azure-exports}
+    - {trigger: false,  passed: [azure-ubuntu],     get: azure-exports, resource: azure-exports}
     - {trigger: false, passed: [build-candidate],  get: bosh-cpi-release, resource: bosh-cpi-release-in}
     - {trigger: false,                             get: director-state-file, resource: ubuntu-director-state-file}
     - {trigger: false,                             get: bosh-init}
