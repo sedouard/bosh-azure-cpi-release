@@ -84,11 +84,6 @@ resource_pools:
   stemcell:
     url: $STEMCELL_URL
     sha1: b05121f774aeaedbd66f6e735339be5c1bf85a5b
-    # bosh-azure-hyperv-ubuntu-trusty-go_agent #TODO:replace after this is available in official repo
-    #url: file://tmp/stemcell.tgz
-    #sha1: b05121f774aeaedbd66f6e735339be5c1bf85a5b
-    #url: file://~/release/stemcell.develop.tgz
-    #url: file://release/stemcell.beta.tgz
   cloud_properties:
     instance_type: Standard_D1
 
@@ -239,8 +234,6 @@ cp ./bosh-cpi-dev-artifacts/${cpi_release_name}-${semver}.tgz ${manifest_dir}/..
 #cp ./bosh-release/release.tgz ${manifest_dir}/tmp/bosh-release.tgz ##TODO
 #cp ./stemcell/stemcell.tgz ${manifest_dir}/tmp/stemcell.tgz ##TODO
 
-# TODO change this version back to the official
-#initver=$(cat bosh-init/version)
 initexe="$PWD/bosh-init/bosh-init-linux-amd64"
 chmod +x $initexe
 
