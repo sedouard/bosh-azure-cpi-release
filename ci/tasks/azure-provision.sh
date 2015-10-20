@@ -44,12 +44,10 @@ echo "{ \"location\": { \"value\": \"${AZURE_REGION_NAME}\" }, \"newStorageAccou
 cat ./azuredeploy-parameters.json
 azure group deployment create ${AZURE_GROUP_NAME} --template-file ./azuredeploy.json --parameters-file ./azuredeploy-parameters.json
 
-AZURE_STORAGE_ACCESS_KEY=$(azure storage account keys list ${AZURE_STORAGE_ACCOUNT_NAME} -g ${AZURE_GROUP_NAME} --json | jq '.storageAccountKeys.key1' -r)
-
 #setup storage account containers
-azure storage container create --account-name ${AZURE_STORAGE_ACCOUNT_NAME} --account-key ${AZURE_STORAGE_ACCESS_KEY} --container bosh
-azure storage container create --account-name ${AZURE_STORAGE_ACCOUNT_NAME} --account-key ${AZURE_STORAGE_ACCESS_KEY} --container stemcell
+azure storage container create --account-name ${AZURE_STORAGE_ACCOUNT_NAME} --account-key $(azure storage account keys list ${AZURE_STORAGE_ACCOUNT_NAME} -g ${AZURE_GROUP_NAME} --json | jq '.storageAccountKeys.key1' -r) --container bosh
+azure storage container create --account-name ${AZURE_STORAGE_ACCOUNT_NAME} --account-key $(azure storage account keys list ${AZURE_STORAGE_ACCOUNT_NAME} -g ${AZURE_GROUP_NAME} --json | jq '.storageAccountKeys.key1' -r) --container stemcell
 
-echo -e "export DIRECTOR=${AZURE_STORAGE_ACCESS_KEY}" >> $export_file
-echo -e "export CF_IP_ADDRESS=${AZURE_STORAGE_ACCESS_KEY}" >> $export_file
-echo -e "export AZURE_STORAGE_ACCESS_KEY=${AZURE_STORAGE_ACCESS_KEY}" >> $export_file
+echo -e "export DIRECTOR=$(azure network public-ip show ${AZURE_GROUP_NAME} pubIP-bosh --json | jq '.ipAddress')" >> $export_file
+echo -e "export CF_IP_ADDRESS=$(azure network public-ip show ${AZURE_GROUP_NAME} pubIP-cf --json | jq '.ipAddress')" >> $export_file
+echo -e "export AZURE_STORAGE_ACCESS_KEY=$($(azure storage account keys list ${AZURE_STORAGE_ACCOUNT_NAME} -g ${AZURE_GROUP_NAME} --json | jq '.storageAccountKeys.key1' -r)" >> $export_file
