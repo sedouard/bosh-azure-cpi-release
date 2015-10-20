@@ -48,9 +48,8 @@ name: bosh
 
 releases:
 - name: bosh
-  #url: file://tmp/bosh-release.tgz  #TODO: replace after this is available in official repo
-  url: http://cloudfoundry.blob.core.windows.net/bosh/bosh-168+dev.beta.tgz
-  sha1: 363a42a0101b9cf822178a959ba36bd4de71c5f3
+  url: http://cloudfoundry.blob.core.windows.net/azureci/bosh-214+dev.1.tgz
+  sha1: c28477c7e08cce06add980bed0ab1ab113a7c825
 - name: bosh-azure-cpi
   url: file://tmp/bosh-azure-cpi.tgz
 
