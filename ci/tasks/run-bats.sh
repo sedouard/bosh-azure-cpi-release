@@ -117,6 +117,7 @@ cat > ".git/config" <<EOF
   branch = master
 [submodule "go/src/github.com/cloudfoundry/bosh-agent"]
   url = https://github.com/AbelHu/bosh-agent.git
+  branch = abelhu
 [submodule "spec/assets/uaa"]
   url = https://github.com/cloudfoundry/uaa.git
 EOF

@@ -210,7 +210,7 @@ resources:
   type: git
   source:
     uri:  https://github.com/AbelHu/bosh
-    branch: azure_cpi_external
+    branch: abelhu
 
 - name: azure-ubuntu-stemcell
   type: s3
