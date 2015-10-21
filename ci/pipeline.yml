@@ -115,6 +115,7 @@ jobs:
     - {trigger: true, passed: [build-candidate], passed: [deploy-director], get: bosh-cpi-dev-artifacts}
     - {trigger: false, get: bosh-cpi-release, resource: bosh-cpi-release-in}
     - {trigger: false, passed: [azure-ubuntu], get: azure-exports, resource: azure-exports}
+    - {trigger: false, get: bosh}
     - {trigger: false, get: stemcell, resource: azure-ubuntu-stemcell}
 
   - task: test
@@ -202,6 +203,14 @@ resources:
   type: bosh-io-release
   source:
     repository: cloudfoundry/bosh
+
+
+# TODO used bats repo directly
+- name: bosh
+  type: git
+  source:
+    uri:  https://github.com/AbelHu/bosh
+    branch: azure_cpi_external
 
 - name: azure-ubuntu-stemcell
   type: s3
