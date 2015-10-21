@@ -90,14 +90,14 @@ cat > ".gitmodules" <<EOF
 [submodule "go/src/github.com/cloudfoundry/bosh-agent"]
       path = go/src/github.com/cloudfoundry/bosh-agent
       url = https://github.com/AbelHu/bosh-agent.git
-      branch = master
+      branch = abelhu
 [submodule "spec/assets/uaa"]
       path = spec/assets/uaa
       url = https://github.com/cloudfoundry/uaa.git
 [submodule "bat"]
       path = bat
       url = https://github.com/AbelHu/bosh-acceptance-tests.git
-      branch = master
+      branch = abelhu
 [submodule "go/src/github.com/cloudfoundry/bosh-davcli"]
       path = go/src/github.com/cloudfoundry/bosh-davcli
       url = https://github.com/cloudfoundry/bosh-davcli.git
