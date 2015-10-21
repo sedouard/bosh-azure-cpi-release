@@ -6,7 +6,7 @@ inputs:
 - name: stemcell
 - name: bosh-cpi-release
 - name: azure-exports
-- name: bosh
+- name: bats
 run:
   path: bosh-cpi-release/ci/tasks/run-bats.sh
 params:

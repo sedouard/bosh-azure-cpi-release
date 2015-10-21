@@ -113,9 +113,10 @@ jobs:
   # passed: 
   - aggregate:
     - {trigger: true, passed: [build-candidate], passed: [deploy-director], get: bosh-cpi-dev-artifacts}
-    - {trigger: true, passed: [deploy-director], get: bosh-cpi-release, resource: bosh-cpi-release-in}
+    - {trigger: false, get: bosh-cpi-release, resource: bosh-cpi-release-in}
     - {trigger: false, passed: [azure-ubuntu], get: azure-exports, resource: azure-exports}
     - {trigger: false, get: bosh}
+    - {trigger: false, get: bats}
     - {trigger: false, get: stemcell, resource: azure-ubuntu-stemcell}
 
   - task: test
@@ -210,6 +211,12 @@ resources:
   source:
     uri:  https://github.com/AbelHu/bosh
     branch: azure_cpi_external
+
+- name: bats
+  type: git
+  source:
+    uri:  {{bosh_acceptance_test_repo}}
+    branch: {{bosh_acceptance_test_repo_branch}}
 
 - name: azure-ubuntu-stemcell
   type: s3
