@@ -87,8 +87,8 @@ ls
 # THIS WILL GO AWAY AFTER BATS CODE IS MERGED
 rm .gitmodules
 cat > ".gitmodules" <<EOF
-[submodule "go/src/github.com/cloudfoundry/bosh-agent"]
-      path = go/src/github.com/cloudfoundry/bosh-agent
+[submodule "go/src/github.com/AbelHu/bosh-agent"]
+      path = go/src/github.com/AbelHu/bosh-agent
       url = https://github.com/AbelHu/bosh-agent.git
       branch = abelhu
 [submodule "spec/assets/uaa"]
