@@ -20,6 +20,7 @@ check_param DIRECTOR
 check_param AZURE_STORAGE_ACCESS_KEY
 check_param BAT_NETWORK_GATEWAY
 check_param STEMCELL_URL
+check_param STEMCELL_SHA
 
 echo "Checking params from previous steps..."
 echo "show directory ip..."
@@ -82,7 +83,7 @@ resource_pools:
   network: private
   stemcell:
     url: $STEMCELL_URL
-    sha1: b05121f774aeaedbd66f6e735339be5c1bf85a5b
+    sha1: $STEMCELL_SHA
   cloud_properties:
     instance_type: Standard_D1
 

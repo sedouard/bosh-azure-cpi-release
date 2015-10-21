@@ -25,3 +25,4 @@ params:
   private_key_data:           replace-me
   ssh_certificate:            replace-me
   STEMCELL_URL:               replace-me
+  STEMCELL_SHA:               replace-me

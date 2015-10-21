@@ -79,6 +79,7 @@ jobs:
         AZURE_BOSH_SUBNET_NAME:     {{azure_bosh_subnet_name}}
         BAT_NETWORK_GATEWAY:        {{BAT_NETWORK_GATEWAY}}
         STEMCELL_URL:               {{BAT_STEMCELL_URL_UBUNTU}}
+        STEMCELL_SHA:               {{BAT_STEMCELL_SHA_UBUNTU}}
         private_key_data:           {{bosh_private_key}}
         ssh_certificate:            {{bosh_public_cert}}
     ensure:
