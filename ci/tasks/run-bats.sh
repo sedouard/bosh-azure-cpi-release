@@ -98,6 +98,9 @@ cat > ".gitmodules" <<EOF
       path = bat
       url = https://github.com/AbelHu/bosh-acceptance-tests.git
       branch = master
+[submodule "go/src/github.com/cloudfoundry/bosh-davcli"]
+      path = go/src/github.com/cloudfoundry/bosh-davcli
+      url = https://github.com/cloudfoundry/bosh-davcli.git
 EOF
 pwd
 echo cat .gitmodules
