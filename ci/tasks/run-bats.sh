@@ -127,6 +127,9 @@ EOF
 cd bat
 git config remote.origin.url https://github.com/AbelHu/bosh-acceptance-tests.git
 cd ..
+pushd go/src/github.com/cloudfoundry/bosh-agent
+git config remote.origin.url https://github.com/AbelHu/bosh-agent.git
+popd
 echo Current Directory:
 echo git submodule update --init
 git submodule update --init
