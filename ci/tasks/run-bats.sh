@@ -88,7 +88,7 @@ ls
 rm .gitmodules
 cat > ".gitmodules" <<EOF
 [submodule "go/src/github.com/AbelHu/bosh-agent"]
-      path = go/src/github.com/AbelHu/bosh-agent
+      path = go/src/github.com/cloudfoundry/bosh-agent
       url = https://github.com/AbelHu/bosh-agent.git
       branch = abelhu
 [submodule "spec/assets/uaa"]
@@ -118,7 +118,7 @@ cat > ".git/config" <<EOF
 [submodule "bat"]
   url = https://github.com/AbelHu/bosh-acceptance-tests.git
   branch = master
-[submodule "go/src/github.com/AbelHu/bosh-agent"]
+[submodule "go/src/github.com/cloudfoundry/bosh-agent"]
   url = https://github.com/AbelHu/bosh-agent.git
   branch = abelhu
 [submodule "spec/assets/uaa"]
